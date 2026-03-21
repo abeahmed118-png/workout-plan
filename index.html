@@ -7,62 +7,73 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Hockey Peak Plan</title>
 <style>
-:root{--bg:#0a0a0a;--surf:#161616;--surf2:#1f1f1f;--bdr:#272727;--acc:#c8f060;--acc2:#60d4f0;--acc3:#f06090;--txt:#f0ece4;--mut:#686868;--mut2:#343434;--done-bg:#1e2d0a;--done-bdr:#3a5214}
+:root{--bg:#0a0a0a;--surf:#161616;--surf2:#1f1f1f;--bdr:#272727;--acc:#c8f060;--acc2:#60d4f0;--txt:#f0ece4;--mut:#686868;--mut2:#343434;--done-bg:#1e2d0a;--done-bdr:#3a5214;--tip-bg:#0d1a08;--tip-bdr:#2a4010}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;overflow:hidden}
 .app{display:flex;flex-direction:column;height:100vh;height:100dvh}
-.topbar{padding:env(safe-area-inset-top,14px) 16px 10px;padding-top:max(env(safe-area-inset-top),14px);background:var(--bg);border-bottom:1px solid var(--bdr);flex-shrink:0}
+.topbar{padding:max(env(safe-area-inset-top),14px) 16px 10px;background:var(--bg);border-bottom:1px solid var(--bdr);flex-shrink:0}
 .topbar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.app-title{font-size:18px;font-weight:700;letter-spacing:.02em;color:var(--acc)}
+.app-title{font-size:18px;font-weight:700;color:var(--acc)}
 .tourney{font-size:11px;color:var(--mut);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px}
 .phase-tabs{display:flex;gap:5px}
-.ptab{flex:1;padding:8px 4px;border-radius:7px;border:1px solid var(--bdr);font-size:12px;font-weight:600;text-align:center;color:var(--mut);background:transparent;cursor:pointer;transition:all .15s;letter-spacing:.01em}
+.ptab{flex:1;padding:8px 4px;border-radius:7px;border:1px solid var(--bdr);font-size:12px;font-weight:600;text-align:center;color:var(--mut);background:transparent;cursor:pointer;transition:all .15s}
 .ptab.active{background:var(--acc);color:#0a0a0a;border-color:var(--acc)}
 .subbar{padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--bdr);flex-shrink:0}
-.week-row{display:flex;gap:5px;overflow-x:auto;padding-bottom:7px;scrollbar-width:none}
-.week-row::-webkit-scrollbar{display:none}
+.wrow{display:flex;gap:5px;overflow-x:auto;padding-bottom:7px;scrollbar-width:none}
+.wrow::-webkit-scrollbar,.drow::-webkit-scrollbar{display:none}
 .wtab{flex-shrink:0;padding:5px 11px;border-radius:5px;border:1px solid var(--bdr);font-size:11px;color:var(--mut);background:transparent;cursor:pointer;white-space:nowrap;transition:all .15s}
 .wtab.active{border-color:var(--acc2);color:var(--acc2)}
-.day-row{display:flex;gap:5px;overflow-x:auto;margin-top:6px;scrollbar-width:none}
-.day-row::-webkit-scrollbar{display:none}
+.drow{display:flex;gap:5px;overflow-x:auto;margin-top:6px;scrollbar-width:none}
 .daybtn{flex-shrink:0;width:42px;height:50px;border-radius:8px;border:1px solid var(--bdr);background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:all .15s}
 .daybtn.active{border-color:var(--acc);background:rgba(200,240,96,.07)}
-.daybtn.rest-day{opacity:.3;pointer-events:none}
-.daybtn.all-done{border-color:#6ab020}
-.day-lbl{font-size:12px;font-weight:600;color:var(--mut)}
-.daybtn.active .day-lbl{color:var(--acc)}
-.daybtn.all-done .day-lbl{color:#8acc30}
-.day-pct{font-size:10px;color:var(--mut)}
-.daybtn.all-done .day-pct{color:#8acc30}
-.scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:40px}
-.sess-hdr{padding:14px 16px 10px;border-bottom:1px solid var(--bdr);position:sticky;top:0;background:var(--bg);z-index:5}
-.type-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;border:1px solid;margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
-.sess-title{font-size:22px;font-weight:700;line-height:1.1;letter-spacing:.01em}
-.sess-sub{font-size:12px;color:var(--mut);margin-top:3px}
-.prog-row{display:flex;align-items:center;gap:10px;margin-top:10px}
-.prog-track{flex:1;height:3px;background:var(--mut2);border-radius:2px;overflow:hidden}
-.prog-bar{height:100%;border-radius:2px;transition:width .25s ease}
-.prog-num{font-size:11px;color:var(--mut);min-width:36px;text-align:right}
-.hip-note{margin:10px 16px 0;padding:9px 12px;background:rgba(200,240,96,.05);border:1px solid rgba(200,240,96,.18);border-radius:7px;font-size:12px;color:var(--acc);line-height:1.5}
-.section{padding:0 16px}
-.sec-hdr{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);padding:14px 0 7px;display:flex;align-items:center;gap:8px}
-.sec-hdr::after{content:'';flex:1;height:1px;background:var(--bdr)}
-.item{display:flex;align-items:flex-start;gap:11px;padding:11px 12px;border-radius:9px;margin-bottom:5px;cursor:pointer;border:1px solid var(--bdr);background:var(--surf);transition:background .1s,border-color .1s}
-.item:active{background:var(--surf2)}
+.daybtn.rd{opacity:.3;pointer-events:none}
+.daybtn.done{border-color:#6ab020}
+.dlbl{font-size:12px;font-weight:600;color:var(--mut)}
+.daybtn.active .dlbl{color:var(--acc)}
+.daybtn.done .dlbl,.daybtn.done .dpct{color:#8acc30}
+.dpct{font-size:10px;color:var(--mut)}
+.sa{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:60px}
+.shdr{padding:14px 16px 10px;border-bottom:1px solid var(--bdr);position:sticky;top:0;background:var(--bg);z-index:5}
+.spill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;border:1px solid;margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+.stitle{font-size:22px;font-weight:700;line-height:1.1}
+.ssub{font-size:12px;color:var(--mut);margin-top:3px}
+.prow{display:flex;align-items:center;gap:10px;margin-top:10px}
+.ptrack{flex:1;height:3px;background:var(--mut2);border-radius:2px;overflow:hidden}
+.pbar{height:100%;border-radius:2px;transition:width .25s}
+.pnum{font-size:11px;color:var(--mut);min-width:36px;text-align:right}
+.hnote{margin:10px 16px 0;padding:9px 12px;background:rgba(200,240,96,.05);border:1px solid rgba(200,240,96,.18);border-radius:7px;font-size:12px;color:var(--acc);line-height:1.5}
+.sec{padding:0 16px}
+.sechdr{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);padding:14px 0 7px;display:flex;align-items:center;gap:8px}
+.sechdr::after{content:'';flex:1;height:1px;background:var(--bdr)}
+.item{border-radius:9px;margin-bottom:5px;border:1px solid var(--bdr);background:var(--surf);overflow:hidden}
 .item.ck{background:var(--done-bg);border-color:var(--done-bdr)}
-.chkbox{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--mut2);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:13px;transition:all .18s;color:#0a0a0a}
-.item.ck .chkbox{background:var(--acc);border-color:var(--acc)}
+.itop{display:flex;align-items:flex-start;gap:11px;padding:11px 12px;cursor:pointer}
+.itop:active{background:rgba(255,255,255,.03)}
+.cbox{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--mut2);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:13px;transition:all .18s;color:#0a0a0a}
+.item.ck .cbox{background:var(--acc);border-color:var(--acc)}
+.imid{flex:1;min-width:0}
 .iname{font-size:14px;font-weight:500;line-height:1.3;color:var(--txt)}
 .item.ck .iname{text-decoration:line-through;color:var(--mut)}
-.idetail{font-size:12px;color:var(--mut);margin-top:2px;line-height:1.4}
-.item.ck .idetail{color:var(--mut2)}
-.coach{margin:6px 16px 0;padding:11px 13px;background:var(--surf);border-left:2px solid var(--acc2);border-radius:0 7px 7px 0;font-size:12px;color:var(--mut);line-height:1.6}
-.coach b{color:var(--txt);font-weight:500}
-.done-banner{margin:14px 16px 0;padding:13px;background:rgba(200,240,96,.08);border:1px solid var(--acc);border-radius:9px;text-align:center;font-size:16px;font-weight:700;letter-spacing:.03em;color:var(--acc);display:none}
-.rest-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px;text-align:center;gap:10px;min-height:300px}
-.rest-icon{font-size:44px;margin-bottom:6px}
-.rest-title{font-size:26px;font-weight:700;letter-spacing:.01em}
-.rest-body{font-size:13px;color:var(--mut);line-height:1.65;max-width:280px}
+.idet{font-size:12px;color:var(--mut);margin-top:2px;line-height:1.4}
+.item.ck .idet{color:var(--mut2)}
+.tbtn{margin:0 12px 9px 45px;padding:4px 10px;border-radius:5px;border:1px solid var(--bdr);background:transparent;font-size:11px;color:var(--mut);cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .15s}
+.tbtn.open{border-color:var(--acc2);color:var(--acc2)}
+.tpanel{display:none;padding:0 12px 11px 12px}
+.tpanel.open{display:block}
+.tinner{background:var(--tip-bg);border:1px solid var(--tip-bdr);border-radius:7px;padding:10px 12px}
+.trow{display:flex;gap:8px;margin-bottom:6px}
+.trow:last-child{margin-bottom:0}
+.tlbl{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--acc2);flex-shrink:0;padding-top:1px;min-width:52px}
+.tlbl.err{color:#f06090}
+.ttxt{font-size:12px;color:var(--mut);line-height:1.55}
+.cnote{margin:6px 16px 0;padding:11px 13px;background:var(--surf);border-left:2px solid var(--acc2);border-radius:0 7px 7px 0;font-size:12px;color:var(--mut);line-height:1.6}
+.cnote b{color:var(--txt);font-weight:500}
+.dbanner{margin:14px 16px 0;padding:13px;background:rgba(200,240,96,.08);border:1px solid var(--acc);border-radius:9px;text-align:center;font-size:16px;font-weight:700;color:var(--acc);display:none}
+.rscreen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px;text-align:center;gap:10px;min-height:300px}
+.rico{font-size:44px;margin-bottom:6px}
+.rtitle{font-size:26px;font-weight:700}
+.rbody{font-size:13px;color:var(--mut);line-height:1.65;max-width:280px}
+.new-badge{display:inline-block;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(240,96,144,.15);border:1px solid rgba(240,96,144,.4);color:#f06090;margin-left:6px;vertical-align:middle;letter-spacing:.04em;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -75,199 +86,472 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:-apple-s
     <div class="phase-tabs" id="ptabs"></div>
   </div>
   <div class="subbar">
-    <div class="week-row" id="wrow"></div>
-    <div class="day-row" id="drow"></div>
+    <div class="wrow" id="wrow"></div>
+    <div class="drow" id="drow"></div>
   </div>
-  <div class="scroll-area" id="sarea"></div>
+  <div class="sa" id="sa"></div>
 </div>
 <script>
+var TIPS={
+  '90/90 hip stretch':{s:'Sit on floor. Front shin across, back shin to the side. Both knees at 90 degrees.',h:'Sit tall, brace core, lean torso forward over front shin. Keep back straight.',f:'Deep pull in the back hip rotators and front hip flexor.',e:'Don\'t collapse sideways. If your hip floats up, put a folded towel under it.'},
+  'Kneeling hip flexor stretch':{s:'Half-kneel: one knee on ground, other foot flat in front. The kneeling side is what you\'re stretching.',h:'FIRST: squeeze the glute of the kneeling leg and tuck your pelvis (posterior tilt). Then shift hips forward gently.',f:'Deep stretch at front of kneeling hip. NOT in your lower back.',e:'Without the glute squeeze and pelvic tuck you are just compressing your lower back. This cue is everything.'},
+  'Pigeon pose':{s:'From all fours, bring one shin across the mat. Back leg extends straight behind.',h:'Square hips toward the floor. Breathe into the tension and relax. Let gravity do the work.',f:'Deep in the glute and piriformis of the front leg.',e:'Don\'t let hips rotate sideways. Use a towel under the front hip if it doesn\'t reach the floor.'},
+  'Glute bridge 2s hold':{s:'Lie on back, knees bent, feet flat hip-width, arms by sides.',h:'Drive through heels, squeeze glutes hard at top. Hold 2 full seconds. Lower slowly.',f:'Glutes working. Lower back should NOT be arching.',e:'If you feel it in your lower back, you are overextending. Think ribs down, glutes tight — not just push hips up.'},
+  'Clamshell':{s:'Lie on side, hips stacked, knees bent 90 degrees, feet together.',h:'Rotate top knee open toward ceiling. Hold 1 second. Lower slowly.',f:'Upper glute (glute medius) on the working side.',e:'Don\'t let your pelvis rock backward. Smaller controlled range beats big cheated range.'},
+  '"World\'s greatest" stretch':{s:'Forward lunge position, front foot flat.',h:'Place same-side hand inside your front foot. Rotate opposite arm up to ceiling, follow with eyes. Return and repeat.',f:'Hip flexor of back leg, thoracic spine, hamstring of front leg.',e:'Don\'t rush — this is a movement not a hold. Slow rotation gets the thoracic spine involved.'},
+  'Copenhagen adductor plank':{s:'Lie on your side. Top foot rests on a bench or chair at about hip height. Bottom leg hangs.',h:'Lift your hips off the ground using the top leg — your inner thigh does the work. Hold for the prescribed time. Lower slowly.',f:'Inner thigh (adductor) of the top leg. This is a tendon strengthening exercise.',e:'Don\'t let your hips sag or rotate. This is one of the best groin injury prevention exercises for hockey. Start with short holds and build up.'},
+  'Isometric hip flexor hold':{s:'Stand on one leg next to a wall for balance.',h:'Drive your free knee up to 90 degrees and hold it there without using your hands. Just your hip flexor holding the position.',f:'Deep hip flexor (psoas) working isometrically — strengthening the tendon in the tight position.',e:'Don\'t lean back to compensate. Stay tall. This directly retrains the psoas to be strong, not just tight.'},
+  'Slow eccentric calf raises':{s:'Stand on the edge of a step, both feet to start. Raise up on both feet.',h:'Shift to one foot. Lower your heel down SLOWLY — take 4 full seconds. Raise back up on both feet. Repeat.',f:'Deep calf and Achilles tendon load. This is tendon remodeling work.',e:'The 4 second lowering is the point — don\'t rush it. This protects your Achilles from concrete running stress. If you feel pain in the tendon, reduce range and see a physio.'},
+  'Dead bug':{s:'Lie on back, arms pointing to ceiling, knees bent 90 degrees in the air.',h:'Press lower back FLAT into floor — this is the whole exercise. Slowly lower one arm overhead and opposite leg toward floor. Return. Alternate.',f:'Deep core bracing. Lower back stays flat the entire time.',e:'The moment your lower back lifts you have gone too far. Reduce range. Start with just arms, then just legs, then combine.'},
+  'Hollow body hold':{s:'Lie on back, arms overhead, legs straight.',h:'Press lower back into floor (posterior pelvic tilt). Lift shoulders and legs off floor. Hold.',f:'Entire anterior core. Lower back flat — non-negotiable.',e:'If lower back arches, bend your knees to make it easier. Never sacrifice the flat back for straighter legs.'},
+  'Bird dog':{s:'On all fours, wrists under shoulders, knees under hips. Neutral spine.',h:'Extend one arm forward and opposite leg back simultaneously. Hold 2 seconds. Return slowly.',f:'Core bracing, glute of extended leg, shoulder stability.',e:'Most common mistake: rotating the hips to get the leg higher. Keep hips level — imagine a glass of water on your lower back.'},
+  'Posterior tilt plank':{s:'Forearm plank, elbows under shoulders.',h:'Before holding: squeeze glutes and tuck pelvis to flatten your lower back. Now hold that position.',f:'Core bracing. Lower back flat. Not your hip flexors.',e:'If your lower back is arching, your hip flexors have taken over. Drop to knees and reset the pelvic tilt.'},
+  'Pallof press':{s:'Stand sideways to cable machine, single handle at chest height. Step away until you feel tension.',h:'Hold handle at chest with both hands. Brace core. Press arms straight out in front. Hold 1-2 seconds. Return.',f:'Obliques and deep core resisting rotation.',e:'Don\'t let your body rotate toward the cable. That rotation is what you are resisting. Go lighter and hold perfect position.'},
+  'Farmer carry':{s:'Pick up two heavy dumbbells or kettlebells, one in each hand.',h:'Walk with them. Stay tall — shoulders back and down, core braced, gaze forward. Smooth controlled steps.',f:'Whole body integration — grip, core, traps, glutes, calves all working together.',e:'Don\'t let the weight pull your shoulders down or your torso lean to one side. If it does, lighten the load.'},
+  'Suitcase carry':{s:'Pick up ONE heavy dumbbell in one hand only.',h:'Walk while resisting the urge to lean toward the weight. Stay completely upright and level.',f:'Lateral core (obliques and QL) working hard to resist lateral bend — directly trains the core stability you need for hockey.',e:'Don\'t lean away from the weight either. Completely neutral upright posture is the goal. Switch hands each set.'},
+  'Barbell back squat':{s:'Bar across upper traps, feet shoulder-width, toes slightly out.',h:'Push knees out over toes as you descend. Hit full depth if possible. Drive through full foot to stand.',f:'Quads, glutes, entire posterior chain.',e:'Don\'t let knees cave inward. Don\'t round lower back at the bottom. If you can\'t hit depth, work on hip and ankle mobility first.'},
+  'Jump squat (bodyweight)':{s:'Feet shoulder-width. Immediately follows your heavy squat set.',h:'Quick dip to quarter squat then explode up as fast as possible. Land softly through toes then heel.',f:'Explosive quad contraction. Goal is maximum body speed not depth.',e:'Don\'t land stiff-legged. Absorb through hip, knee, and ankle. Every rep at max intent.'},
+  'Bulgarian split squat':{s:'Rear foot elevated on bench, front foot stepped far forward.',h:'Lower back knee toward floor, keeping front shin relatively vertical. Drive through front heel to return.',f:'Front glute and quad.',e:'Don\'t let front knee track inward. Keep torso upright — leaning too far forward shifts load off the glute.'},
+  'Romanian deadlift':{s:'Stand holding barbell at hip height, slight knee bend, feet hip-width.',h:'Hinge at hip, push hips back as bar slides down your thighs. Go until you feel a strong hamstring stretch. Drive hips forward to return.',f:'Hamstrings and glutes. NOT your lower back.',e:'Don\'t round your lower back. This is a hip hinge not a squat. Bar stays close to your body.'},
+  'Nordic hamstring curl':{s:'Kneel on a pad, have someone hold your ankles or hook under a machine.',h:'Slowly lower your body toward the floor resisting with your hamstrings as long as possible. Catch with your hands. Push back up.',f:'Hamstrings under extreme eccentric load — the most effective hamstring injury prevention exercise.',e:'This is very hard. Even 10-15 degrees of controlled lowering is effective. Never sacrifice control for range.'},
+  'Hip 90/90 transitions':{s:'Seated 90/90 position.',h:'Without using your hands, rotate hips so the back leg becomes the front leg. Fluid windshield-wiper motion.',f:'Active hip internal and external rotation.',e:'Work toward no hands. Using hands is fine to start but hands-free is the goal.'},
+  'Single-leg press':{s:'One foot in center of leg press platform.',h:'Full range — knee comes toward chest at bottom. Drive through heel to full extension.',f:'Glute and quad of working leg.',e:'Don\'t let the knee cave inward. Push it out in line with your second toe.'},
+  'Depth jumps':{s:'Box 12-18 inches high. Step off, land directly in front.',h:'Step off (don\'t jump). The moment your feet hit the ground, jump as high as possible. Ground contact under 0.2 seconds.',f:'Stretch-shortening cycle. Like a bouncing ball.',e:'Don\'t pause on landing. The whole point is the fast stretch-shortening. Pausing turns it into a squat jump.'},
+  'Lateral bounds':{s:'Standing on one foot.',h:'Push off and bound laterally to the other foot. Stick the landing for 1 second before going back.',f:'Glute medius and abductors driving the push. Single-leg stability on landing.',e:'If you can\'t stick the landing, reduce the distance. Landing stability is the hockey-specific training.'},
+  'Box jumps':{s:'Box 18-24 inches. Stand close, feet hip-width.',h:'Quick dip, swing arms, explode up. Land softly in a quarter squat on top. Step down — don\'t jump down.',f:'Explosive quad and glute contraction.',e:'Don\'t squat deep before jumping — quick dip and explode. If you are crashing onto the box it is too high.'},
+  'Broad jumps':{s:'Standing, feet shoulder-width.',h:'Swing arms back, load hips, then explode forward and up simultaneously. Land with soft knees.',f:'Full posterior chain explosive extension.',e:'Swing your arms aggressively — arm drive adds significant distance.'},
+  'Trap bar deadlift explosive':{s:'Trap bar at 60-65% of max.',h:'Drive the floor away as fast as possible. Maximum velocity every rep.',f:'Posterior chain explosive extension. Bar should move fast.',e:'If the bar is moving slowly it is too heavy. Goal is bar speed not weight.'},
+  'Depth drop to sprint':{s:'Low box 6-12 inches. 10m sprint lane in front.',h:'Step off the box. The moment your feet hit, explode into a 10m sprint. Zero hesitation.',f:'Reactive first step — switching instantly from absorbing to exploding.',e:'Don\'t jump off the box. Step. The unplanned drop makes the sprint reaction truly reactive.'},
+  'Flying 20m sprints':{s:'10m build-up zone then a 20m timed zone.',h:'Accelerate through the first 10m then hit maximum velocity through the 20m zone.',f:'Maximum leg turnover. You are training top speed not acceleration.',e:'Don\'t tense up at full speed. Sprinting fast requires relaxation especially in the face hands and shoulders.'},
+  'Sled push':{s:'Light load for speed work. Hands on poles, lean into sled at about 45 degrees.',h:'Drive with full leg extension, fast turnover. Goal is velocity not grinding through heavy weight.',f:'Hip extension, powerful glute drive, fast foot contacts.',e:'Don\'t load it so heavy you are grinding. If form breaks in the first 10m it is too heavy.'},
+  '3-cone drill':{s:'Three cones in an L-shape 5 yards apart.',h:'Sprint to first cone and back, then around outside of second and third cones in a figure-8 pattern.',f:'Explosive starts, sharp cuts, direction changes.',e:'Attack each cut aggressively. Decelerate INTO the cut not before it.'},
+  'T-drill':{s:'Cones in a T-shape: start, 10 yards forward, 5 yards left, 5 yards right.',h:'Sprint forward, shuffle left, shuffle all the way right, shuffle back to center, backpedal to start.',f:'Multi-directional speed in all planes.',e:'Touch each cone. Stay facing forward the entire time during shuffles.'},
+  '5-10-5 drill':{s:'Three cones in a line 5 yards apart.',h:'Start at middle cone. Sprint 5 yards right, touch. Sprint 10 yards left, touch. Sprint 5 yards right to finish.',f:'Sharp deceleration into each cut, explosive acceleration out.',e:'The cut is where you gain or lose time. Get low and plant hard.'},
+  'Assault bike intervals':{s:'Set resistance to feel challenging at max effort.',h:'All-out effort during the work period — arms and legs both. Easy pedal during rest.',f:'Lungs burning by round 5-6. Anaerobic system working.',e:'It has to be max effort. Half-effort intervals train you to work at half speed.'},
+  '30s sprint 90s walk':{s:'Track turf or road. Clear sprint zone.',h:'Sprint as hard as you can for 30 seconds. Walk for 90 seconds. One shift simulation.',f:'By round 5-6 breathing hard. Round 8 should be very challenging.',e:'Don\'t jog — sprint. This only works if effort mirrors game intensity.'},
+  'Suicide runs':{s:'Lines at 5m 10m 15m 20m from start.',h:'Sprint to 5m touch back. 10m touch back. 15m touch back. 20m touch back. That is one round.',f:'Accumulating fatigue through repeated accelerations and decelerations.',e:'Touch every line. The deceleration and touch are where the sport-specific training happens.'},
+  'Lateral shuffle burst':{s:'Athletic stance, ready position.',h:'Shuffle laterally 3-4 steps then explode into a 10m sprint.',f:'The transition from lateral to linear is pure hockey movement.',e:'The burst must be explosive — not a jog. Decelerate hard, plant, go.'},
+  'Band pull-aparts':{s:'Hold resistance band at chest height, hands shoulder-width.',h:'Pull the band apart to your sides until it touches your chest. Squeeze shoulder blades together at the end.',f:'Rear delts and rhomboids — muscles shut off by desk work.',e:'Don\'t shrug your shoulders up. Keep them down and back throughout.'},
+  'Face pulls':{s:'Cable at face height, rope attachment.',h:'Pull rope toward your face, flaring elbows out. External rotate at the end — hands end up by your ears.',f:'Rear delts and external rotators. The antidote to desk posture.',e:'Keep elbows high throughout. Dropping them turns it into a row.'},
+  'Cable woodchop':{s:'Cable at high or low position. Stand sideways, both hands on handle.',h:'Rotate your torso to pull the cable across your body. Feet stay planted — rotate from hips and thoracic spine.',f:'Obliques and rotational core. Direct sport transfer for hockey.',e:'Don\'t just use your arms. Power comes from the hip rotation.'},
+  'Slow eccentric calf raise':{s:'Stand on edge of a step, one foot.',h:'Raise up on both feet, shift to one foot, lower your heel down over 4 full seconds.',f:'Achilles tendon remodeling. Critical for concrete running.',e:'The 4 second lowering is the entire point — don\'t rush it.'},
+  'Foam roll':{s:'Foam roller on the ground.',h:'Slow rolls on quads, IT band, glutes, calves. Pause and hold on tight spots for 5-10 seconds.',f:'Pressure and release in muscle tissue.',e:'Don\'t just roll fast. Slow with pauses on tight spots is far more effective.'}
+};
+
 var HIP=[
   {n:'90/90 hip stretch',d:'90s each side — sit tall, lean over front shin'},
-  {n:'Kneeling hip flexor stretch',d:'90s each side — squeeze glute + pelvic tilt FIRST'},
+  {n:'Kneeling hip flexor stretch',d:'90s each side — glute squeeze + posterior tilt FIRST'},
   {n:'Pigeon pose',d:'60s each side — breathe into it, stay relaxed'},
   {n:'Glute bridge 2s hold',d:'2x15 — ribs down, drive through heels'},
-  {n:'Clamshell',d:'2x15 each side — don\'t let pelvis rock back'},
-  {n:'"World\'s greatest" stretch',d:'5 reps each side — slow and controlled'}
+  {n:'Clamshell',d:'2x15 each side — don\'t let pelvis rock'},
+  {n:'"World\'s greatest" stretch',d:'5 reps each side — slow and controlled'},
+  {n:'Copenhagen adductor plank',d:'3x20s each side — groin tendon work NEW',tag:'new'},
+  {n:'Isometric hip flexor hold',d:'3x20s each side — stand tall, knee at 90°',tag:'new'},
+  {n:'Slow eccentric calf raises',d:'3x8 each side — 4 seconds down, Achilles tendon',tag:'new'}
 ];
+
+var CORE=[
+  {n:'Dead bug',d:'3x8/side — lower back FLAT into floor the entire time'},
+  {n:'Hollow body hold',d:'3x20s building to 30s — lower back flat, never arch'},
+  {n:'Bird dog',d:'3x8/side — 2s hold, keep hips perfectly level'},
+  {n:'Posterior tilt plank',d:'2x20s — tuck pelvis first, quality over duration'}
+];
+
 var PH=[
 {lb:'P1',fl:'Foundation',col:'#c8f060',
- wks:['Wk 1 · Mar 16','Wk 2 · Mar 23','Wk 3 · Mar 30'],
+ wks:['Wk 1 · Mar 21','Wk 2 · Mar 28','Wk 3 · Apr 4'],
  days:[
-  {ti:'Lower Body Strength',su:'Squat pattern · glute activation',ty:'Strength',tc:'#c8f060',
-   s:[{h:'Warmup',i:[{n:'Hip 90/90 stretch',d:'2x60s/side'},{n:'World\'s greatest stretch',d:'5 reps/side'},{n:'Glute bridges',d:'2x15'},{n:'Lateral band walks',d:'2x15/side'}]},
-      {h:'Main Work',i:[{n:'Barbell back squat',d:'4x6 @ 70% — full depth, slow down'},{n:'Bulgarian split squat',d:'3x8/side — control the descent'},{n:'Romanian deadlift',d:'3x10 — feel the hamstring stretch'},{n:'Hip flexor couch stretch',d:'3x60s/side — posterior tilt first'},{n:'Lateral band clamshells',d:'3x15/side'}]}],
-   no:'Keep weight moderate. Building movement patterns, not chasing PRs. Full hip range every rep.'},
+  {ti:'Lower Body Strength',su:'Squat pattern · glute activation · tendon work',ty:'Strength',tc:'#c8f060',
+   s:[{h:'Warmup',i:[
+     {n:'90/90 hip stretch',d:'2x60s/side'},
+     {n:'"World\'s greatest" stretch',d:'5 reps/side'},
+     {n:'Glute bridge 2s hold',d:'2x15'},
+     {n:'Clamshell',d:'2x15/side'}
+   ]},{h:'Main Work',i:[
+     {n:'Barbell back squat',d:'4x6 @ 70% — full depth, slow down'},
+     {n:'Bulgarian split squat',d:'3x8/side — control the descent'},
+     {n:'Romanian deadlift',d:'3x10 — feel the hamstring stretch'},
+     {n:'Suitcase carry',d:'3x30m each side — stay completely upright',tag:'new'},
+     {n:'Kneeling hip flexor stretch',d:'3x60s/side — posterior tilt first'},
+     {n:'Slow eccentric calf raises',d:'3x8 each side — 4 seconds down',tag:'new'}
+   ]}],
+   no:'Keep weight moderate. Building movement patterns not PRs. The suitcase carry replaces isolated cable rows — it trains your whole body to move as a unit under load.'},
   {ti:'Speed & Agility',su:'First-step quickness · lateral shuffle',ty:'Speed',tc:'#60d4f0',
-   s:[{h:'Warmup',i:[{n:'A-skips',d:'2x20m'},{n:'High knees',d:'2x20m'},{n:'Lateral shuffle',d:'2x15m/side'},{n:'Hip circles',d:'10/side'}]},
-      {h:'Main Work',i:[{n:'Sled push (light) 20m',d:'6 sets — full rest between each'},{n:'Cone lateral shuffle 5m/side',d:'6x4 reps — stay low'},{n:'3-cone drill',d:'6 reps — track your time'},{n:'Resisted sprints 15m',d:'5 reps — full rest'},{n:'Deceleration drill',d:'5 reps — stick the landing'}]}],
-   no:'Rest FULLY between speed reps. Speed done tired = practicing bad habits.'},
-  {ti:'Upper Body + Conditioning',su:'Push/pull strength · assault bike',ty:'Conditioning',tc:'#60d4f0',
-   s:[{h:'Warmup',i:[{n:'Band pull-aparts',d:'2x20'},{n:'Thoracic rotations',d:'10/side'},{n:'Scapular push-ups',d:'2x10'}]},
-      {h:'Main Work',i:[{n:'Dumbbell bench press',d:'3x10'},{n:'Seated cable row',d:'3x10'},{n:'Landmine press',d:'3x10/side'},{n:'Face pulls',d:'3x15'},{n:'Assault bike — 20s on / 40s off',d:'10 rounds'}]}],
-   no:'Upper body is secondary. Don\'t go to failure — save energy for the bike finisher.'},
-  {ti:'Hip Mobility + Recovery',su:'Deep hip work · foam rolling',ty:'Recovery',tc:'#f0c060',
-   s:[{h:'Activate',i:[{n:'Easy bike or jog',d:'5 min — get blood moving'}]},
-      {h:'Deep Mobility',i:[{n:'Pigeon pose',d:'3x90s/side — most important stretch'},{n:'Frog stretch',d:'3x60s — hips wide, sink slowly'},{n:'Hip flexor kneeling stretch',d:'3x60s/side — glute squeeze first'},{n:'Adductor rock-back',d:'2x10/side'},{n:'Dead bug',d:'3x10/side — lower back stays flat'},{n:'Foam roll — quads, IT band, glutes',d:'5 min total'}]}],
-   no:'THIS is your most important day. Do not skip it. Hip mobility is your #1 bottleneck for speed.'},
-  {ti:'Power & Explosiveness',su:'Plyometrics · jump training',ty:'Power',tc:'#f06090',
-   s:[{h:'Warmup',i:[{n:'Leg swings',d:'10/side'},{n:'Jump rope',d:'3 min'},{n:'Box step-ups',d:'10/side'}]},
-      {h:'Main Work',i:[{n:'Box jumps',d:'4x5 — full rest, land soft'},{n:'Broad jumps',d:'4x4 — max distance each'},{n:'Lateral bounds (skater jumps)',d:'4x6/side'},{n:'Trap bar deadlift explosive',d:'4x4 @ 60-65% — bar speed is goal'},{n:'Depth drop → sprint 10m',d:'5 reps — reactive first step'}]}],
-   no:'All power work = max intent. Fatigued? Add 5 min to warmup first.'},
-  {ti:'Game-Sim Conditioning',su:'Hockey shifts · sprints · rest intervals',ty:'Game Sim',tc:'#c8f060',
-   s:[{h:'Warmup',i:[{n:'10 min jog or bike',d:'Easy pace'},{n:'Dynamic stretches',d:'Leg swings, hip circles, high knees'}]},
-      {h:'Main Work',i:[{n:'30s max sprint / 90s walk',d:'8 rounds — mimics real shifts'},{n:'Suicide runs — 5m 10m 15m 20m',d:'4 rounds — touch each line'},{n:'Lateral shuffle + burst 10m',d:'6 reps/side'},{n:'Assault bike — 30s on / 60s off',d:'6 rounds'}]}],
-   no:'Push hard on the "on" periods. This trains your anaerobic system specifically for hockey.'},
+   s:[{h:'Warmup',i:[
+     {n:'Lateral bounds',d:'2x6/side — light and reactive'},
+     {n:'"World\'s greatest" stretch',d:'5 reps/side'},
+     {n:'Leg swings',d:'10/side forward and lateral'}
+   ]},{h:'Main Work',i:[
+     {n:'Sled push',d:'6x20m — light load, full rest between each'},
+     {n:'3-cone drill',d:'6 reps — track your time'},
+     {n:'Lateral shuffle burst',d:'6 reps/side — shuffle then explode'},
+     {n:'Flying 20m sprints',d:'5 reps — 3 min rest each, feel fast'},
+     {n:'Depth drop to sprint',d:'5 reps — zero hesitation'}
+   ]}],
+   no:'Rest FULLY between speed reps. Speed done tired trains you to be slow.'},
+  {ti:'Upper Body + Conditioning',su:'Integrated strength · rotational power · bike',ty:'Conditioning',tc:'#60d4f0',
+   s:[{h:'Warmup',i:[
+     {n:'Band pull-aparts',d:'2x20'},
+     {n:'Face pulls',d:'2x15 — shoulder health'},
+     {n:'Thoracic rotation',d:'10/side on all fours'}
+   ]},{h:'Main Work',i:[
+     {n:'Farmer carry',d:'4x40m — heavy, stay tall',tag:'new'},
+     {n:'Cable woodchop',d:'3x10/side — rotate from hips'},
+     {n:'Pallof press',d:'3x12/side — resist the rotation'},
+     {n:'Face pulls',d:'3x15'},
+     {n:'Assault bike intervals',d:'10 rounds — 20s all out / 40s easy'}
+   ]}],
+   no:'Farmer carry replaces bench press — it trains your whole body to brace and move under load which is far more relevant to hockey than isolated pressing.'},
+  {ti:'Hip Mobility + Recovery',su:'Deep hip work · tendon loading · foam rolling',ty:'Recovery',tc:'#f0c060',
+   s:[{h:'Activate',i:[
+     {n:'Easy bike or jog',d:'5 min — get blood moving'}
+   ]},{h:'Deep Mobility',i:[
+     {n:'Pigeon pose',d:'3x90s/side'},
+     {n:'Kneeling hip flexor stretch',d:'3x60s/side — PPT cue every time'},
+     {n:'90/90 hip stretch',d:'3x60s/side'},
+     {n:'Copenhagen adductor plank',d:'3x20s/side — groin tendon',tag:'new'},
+     {n:'Isometric hip flexor hold',d:'3x25s/side — psoas tendon',tag:'new'},
+     {n:'Foam roll',d:'8 min — quads IT band glutes calves'}
+   ]}],
+   no:'Thursday is your most important day. The isometric hip flexor hold and Copenhagen plank are the new additions — they strengthen the tendons, not just stretch them.'},
+  {ti:'Power & Explosiveness',su:'Plyometrics · reactive training · speed',ty:'Power',tc:'#f06090',
+   s:[{h:'Warmup',i:[
+     {n:'Leg swings',d:'10/side'},
+     {n:'Box jumps',d:'3x3 — light warmup'},
+     {n:'Broad jumps',d:'3x3 — easy'}
+   ]},{h:'Main Work',i:[
+     {n:'Box jumps',d:'4x5 — full rest, land soft'},
+     {n:'Broad jumps',d:'4x4 — max distance'},
+     {n:'Lateral bounds',d:'4x6/side — stick each landing'},
+     {n:'Trap bar deadlift explosive',d:'4x4 @ 60-65% — bar speed'},
+     {n:'Depth drop to sprint',d:'5 reps — reactive first step'},
+     {n:'Slow eccentric calf raises',d:'2x8 each side — Achilles work',tag:'new'}
+   ]}],
+   no:'All power work = max intent. The eccentric calf raises at the end protect your Achilles from the repeated concrete running this plan involves.'},
+  {ti:'Game-Sim Conditioning',su:'Hockey shifts · sprints · assault bike',ty:'Game Sim',tc:'#c8f060',
+   s:[{h:'Warmup',i:[
+     {n:'Easy bike or jog',d:'10 min — build gradually'},
+     {n:'Leg swings',d:'10/side'},
+     {n:'Lateral shuffle burst',d:'4 reps each side — light'}
+   ]},{h:'Main Work',i:[
+     {n:'30s sprint 90s walk',d:'8 rounds — mimics real shifts'},
+     {n:'Suicide runs',d:'4 rounds — touch every line'},
+     {n:'Lateral shuffle burst',d:'6 reps/side'},
+     {n:'Assault bike intervals',d:'6 rounds — 30s on / 60s off'}
+   ]}],
+   no:'Push hard during the on periods. This trains your anaerobic system specifically for hockey shifts.'},
   {rest:true}
  ]},
 {lb:'P2',fl:'Intensity',col:'#60d4f0',
- wks:['Wk 4 · Apr 6','Wk 5 · Apr 13','Wk 6 · Apr 20'],
+ wks:['Wk 4 · Apr 11','Wk 5 · Apr 18','Wk 6 · Apr 25'],
  days:[
-  {ti:'Lower Body Power',su:'Heavy squat + contrast jumps',ty:'Strength',tc:'#c8f060',
-   s:[{h:'Warmup',i:[{n:'Hip 90/90',d:'60s/side'},{n:'Glute bridges',d:'2x15'},{n:'Lateral band walks',d:'2x15'}]},
-      {h:'Main Work',i:[{n:'Barbell back squat',d:'4x4 @ 80% effort'},{n:'Jump squat (bodyweight)',d:'4x5 — right after each squat set'},{n:'Single-leg press',d:'3x10/side'},{n:'Nordic hamstring curl',d:'3x6 — control the descent'},{n:'Hip 90/90 transitions',d:'2x10/side'}]}],
-   no:'Squat then jump squat = post-activation potentiation. Your nervous system fires faster after heavy lifting. Elite speed training.'},
-  {ti:'Max Speed + Reactive',su:'Flying sprints · reactive cone work',ty:'Speed',tc:'#60d4f0',
-   s:[{h:'Warmup',i:[{n:'A-skips + B-skips',d:'2x20m each'},{n:'Falling starts',d:'5 reps'},{n:'Sprint build-ups',d:'3x30m — 60%, 80%, 95%'}]},
-      {h:'Main Work',i:[{n:'Flying 20m sprints (10m build-up)',d:'6 reps — 3 min rest each'},{n:'Reactive lateral drill',d:'8x8s — react to signal'},{n:'T-drill',d:'6 reps — beat your Phase 1 time'},{n:'Resisted sled sprint 20m',d:'5 reps — full rest'},{n:'5-10-5 change of direction',d:'6 reps'}]}],
-   no:'Phase 2 is where speed gains happen. Full rest. A fresh 10s sprint beats 5 tired ones every time.'},
-  {ti:'Upper Body + Hip Mobility',su:'Rotational strength · deeper ROM',ty:'Strength',tc:'#c8f060',
-   s:[{h:'Warmup',i:[{n:'Band pull-aparts',d:'2x20'},{n:'Thoracic rotations',d:'10/side'}]},
-      {h:'Main Work',i:[{n:'Weighted pull-ups or lat pulldown',d:'4x6'},{n:'Dumbbell row',d:'3x10/side'},{n:'Cable woodchop (rotational)',d:'3x10/side — key for centers'},{n:'Pallof press',d:'3x12/side'},{n:'Pigeon pose',d:'3x90s/side'},{n:'Couch stretch',d:'2x90s/side'}]}],
-   no:'Rotational core is critical for a center — every pass, shot, and body fake starts in rotation.'},
-  {ti:'Active Recovery + Mobility',su:'Deeper hip flow · full lower body',ty:'Recovery',tc:'#f0c060',
-   s:[{h:'Activate',i:[{n:'5 min easy bike',d:'Flush the legs'}]},
-      {h:'Mobility',i:[{n:'Full Phase 1 Thursday routine',d:'All 6 exercises'},{n:'90/90 hip switches',d:'3x10 — new this phase'},{n:'Adductor stretch on wall',d:'2x60s/side — new this phase'},{n:'Foam roll full lower body',d:'8 min — quads, IT band, glutes, calves'}]}],
-   no:'By week 5-6 you should notice real range of motion improvement. Not there? Add 5 min of frog stretch.'},
-  {ti:'Plyometric Power Day',su:'High-intensity jumps · reactive hops',ty:'Power',tc:'#f06090',
-   s:[{h:'Warmup',i:[{n:'Jump rope',d:'3 min'},{n:'Leg swings',d:'10/side'},{n:'Mini hurdle skips',d:'2x10m'}]},
-      {h:'Main Work',i:[{n:'Depth jumps (step off box, explode up)',d:'4x5 — 2 min rest — land soft'},{n:'Single-leg lateral bounds',d:'4x8/side'},{n:'Hurdle hops (6 in a row)',d:'4 sets'},{n:'Sprint 15m from standing start',d:'6 reps — full rest'},{n:'Reactive: ball drop → sprint',d:'6 reps'}]}],
-   no:'Land soft through the hip on depth jumps. Swap for squat jumps if knees are taking it.'},
-  {ti:'Game-Sim Harder',su:'Shorter rest · longer effort · more reps',ty:'Game Sim',tc:'#c8f060',
-   s:[{h:'Warmup',i:[{n:'10 min jog',d:'Easy pace'},{n:'Dynamic stretches',d:'Full sequence'}]},
-      {h:'Main Work',i:[{n:'40s effort / 80s rest',d:'10 rounds — shift simulation'},{n:'Lateral shuffle + sprint combo',d:'8 reps/side'},{n:'Assault bike max sprint',d:'8x20s on / 40s off'},{n:'3-point starts → 20m sprint',d:'5 reps — explosive first step'}]}],
-   no:'By round 7-8 you should be gassed. That\'s the point. This is where your conditioning actually improves.'},
+  {ti:'Lower Body Power',su:'Heavy squat + contrast jumps · loaded carries',ty:'Strength',tc:'#c8f060',
+   s:[{h:'Warmup',i:[
+     {n:'90/90 hip stretch',d:'60s/side'},
+     {n:'Glute bridge 2s hold',d:'2x15'},
+     {n:'Clamshell',d:'2x15/side'}
+   ]},{h:'Main Work',i:[
+     {n:'Barbell back squat',d:'4x4 @ 80% effort'},
+     {n:'Jump squat (bodyweight)',d:'4x5 — immediately after each squat set'},
+     {n:'Single-leg press',d:'3x10/side'},
+     {n:'Nordic hamstring curl',d:'3x6 — control the descent'},
+     {n:'Suitcase carry',d:'3x40m each side — heavier than Phase 1',tag:'new'},
+     {n:'Slow eccentric calf raises',d:'3x10 each side — 4 seconds down',tag:'new'}
+   ]}],
+   no:'Squat then jump squat = post-activation potentiation. Your nervous system fires faster after a heavy lift. Suitcase carry gets heavier this phase.'},
+  {ti:'Max Speed + Reactive',su:'Flying sprints · cone work · reactive drills',ty:'Speed',tc:'#60d4f0',
+   s:[{h:'Warmup',i:[
+     {n:'Flying 20m sprints',d:'3x build-up only — 60% 80% 95%'},
+     {n:'Lateral bounds',d:'2x6/side — reactive'},
+     {n:'"World\'s greatest" stretch',d:'5 reps/side'}
+   ]},{h:'Main Work',i:[
+     {n:'Flying 20m sprints',d:'6 reps — 3 min rest — beat Phase 1 times'},
+     {n:'T-drill',d:'6 reps — track time'},
+     {n:'5-10-5 drill',d:'6 reps — sharp cuts'},
+     {n:'Sled push',d:'5x20m — heavier than Phase 1'},
+     {n:'Depth drop to sprint',d:'5 reps — explosive'}
+   ]}],
+   no:'Phase 2 is where speed gains actually happen. Full rest between reps. A fresh sprint beats five tired ones every time.'},
+  {ti:'Upper Body + Rotational Power',su:'Integrated strength · carry progression · bike',ty:'Strength',tc:'#c8f060',
+   s:[{h:'Warmup',i:[
+     {n:'Band pull-aparts',d:'2x20'},
+     {n:'Face pulls',d:'2x15'}
+   ]},{h:'Main Work',i:[
+     {n:'Farmer carry',d:'4x50m — heavier than Phase 1',tag:'new'},
+     {n:'Cable woodchop',d:'4x10/side — more load'},
+     {n:'Pallof press',d:'3x12/side'},
+     {n:'Face pulls',d:'3x15'},
+     {n:'Copenhagen adductor plank',d:'3x30s/side — build hold time',tag:'new'},
+     {n:'Assault bike intervals',d:'8 rounds — 20s all out / 40s easy'}
+   ]}],
+   no:'Carries get heavier this phase. The farmer carry is a full-body integration drill — grip, core, traps, glutes, calves all firing together.'},
+  {ti:'Active Recovery + Mobility',su:'Deeper hip flow · tendon maintenance',ty:'Recovery',tc:'#f0c060',
+   s:[{h:'Activate',i:[
+     {n:'Easy bike or jog',d:'5 min'}
+   ]},{h:'Mobility',i:[
+     {n:'Pigeon pose',d:'3x90s/side'},
+     {n:'Kneeling hip flexor stretch',d:'3x90s/side — PPT cue'},
+     {n:'90/90 hip stretch',d:'3x60s/side'},
+     {n:'Hip 90/90 transitions',d:'3x10 — work toward no hands'},
+     {n:'Copenhagen adductor plank',d:'3x30s/side',tag:'new'},
+     {n:'Isometric hip flexor hold',d:'3x30s/side — build hold time',tag:'new'},
+     {n:'Foam roll',d:'8 min full lower body'}
+   ]}],
+   no:'By week 5-6 you should feel real range of motion improvement. The isometric holds get longer this phase — the psoas tendon is adapting.'},
+  {ti:'Plyometric Power Day',su:'High-intensity jumps · bounds · reactive',ty:'Power',tc:'#f06090',
+   s:[{h:'Warmup',i:[
+     {n:'Box jumps',d:'3x3 — warmup height'},
+     {n:'Lateral bounds',d:'2x6/side'},
+     {n:'Leg swings',d:'10/side'}
+   ]},{h:'Main Work',i:[
+     {n:'Depth jumps',d:'4x5 — 2 min rest — land soft'},
+     {n:'Lateral bounds',d:'4x8/side — stick every landing'},
+     {n:'Broad jumps',d:'4x4 — max distance'},
+     {n:'Flying 20m sprints',d:'4 reps — feel explosive'},
+     {n:'Slow eccentric calf raises',d:'3x10 each side',tag:'new'}
+   ]}],
+   no:'Depth jumps are intense on joints. Land soft through the hip. Swap for squat jumps if your knees are taking it.'},
+  {ti:'Game-Sim Harder',su:'Shorter rest · longer effort · more volume',ty:'Game Sim',tc:'#c8f060',
+   s:[{h:'Warmup',i:[
+     {n:'Easy bike or jog',d:'10 min'},
+     {n:'Leg swings',d:'10/side'}
+   ]},{h:'Main Work',i:[
+     {n:'30s sprint 90s walk',d:'10 rounds — more than Phase 1'},
+     {n:'Suicide runs',d:'5 rounds'},
+     {n:'Lateral shuffle burst',d:'8 reps/side'},
+     {n:'Assault bike intervals',d:'8 rounds — 30s on / 60s off'}
+   ]}],
+   no:'By round 8-9 you should be gassed. That is the point. This is where your conditioning actually improves.'},
   {rest:true}
  ]},
 {lb:'P3',fl:'Peak & Taper',col:'#f06090',
- wks:['Wk 7 · Apr 27','Wk 8 · May 4'],
+ wks:['Wk 7 · May 2','Wk 8 · May 9'],
  days:[
   {ti:'Lower Body — Quality',su:'Heavy but low volume · feel powerful',ty:'Strength',tc:'#c8f060',
-   s:[{h:'Warmup',i:[{n:'Hip 90/90',d:'60s/side'},{n:'Glute bridges',d:'15 reps'},{n:'Leg swings',d:'10/side'}]},
-      {h:'Main Work',i:[{n:'Barbell squat',d:'3x3 @ 80-85% — feel powerful, not crushed'},{n:'Bulgarian split squat',d:'2x6/side'},{n:'Full hip mobility routine',d:'15 min — all 6 exercises'}]}],
-   no:'Walk out feeling BETTER than you went in. No grinding, no failure sets. This is maintenance, not destruction.'},
+   s:[{h:'Warmup',i:[
+     {n:'90/90 hip stretch',d:'60s/side'},
+     {n:'Glute bridge 2s hold',d:'15 reps'},
+     {n:'Leg swings',d:'10/side'}
+   ]},{h:'Main Work',i:[
+     {n:'Barbell back squat',d:'3x3 @ 80-85% — feel powerful not crushed'},
+     {n:'Bulgarian split squat',d:'2x6/side'},
+     {n:'Suitcase carry',d:'2x30m — maintain not build'},
+     {n:'Slow eccentric calf raises',d:'2x8 — maintain Achilles health'}
+   ]}],
+   no:'Walk out feeling BETTER than you went in. No grinding. This is maintenance, not destruction.'},
   {ti:'Speed Day — Sharp',su:'Short sprints · full rest · pure quality',ty:'Speed',tc:'#60d4f0',
-   s:[{h:'Warmup',i:[{n:'Full dynamic warmup',d:'15 min — don\'t rush this'}]},
-      {h:'Main Work',i:[{n:'Flying 20m sprints',d:'4 reps — 4 min rest — feel FAST'},{n:'3-cone drill',d:'4 reps — beat your Phase 2 time'},{n:'Reactive lateral drills',d:'5x6s — sharp and clean'}]}],
-   no:'You should feel electric. If you feel sluggish, take an extra rest day — your body isn\'t recovered yet.'},
-  {ti:'Mobility + Light Upper',su:'Stay loose · maintain range of motion',ty:'Recovery',tc:'#f0c060',
-   s:[{h:'Warmup',i:[{n:'5 min easy bike',d:''}]},
-      {h:'Main Work',i:[{n:'Full hip mobility routine',d:'20 min — full sequence'},{n:'Pull-ups',d:'3x5 — easy, no strain'},{n:'Cable rows',d:'3x8 — moderate weight'},{n:'Foam roll full body',d:'10 min'}]}],
-   no:'Your body is absorbing 6 weeks of work right now. Trust the process.'},
+   s:[{h:'Warmup',i:[
+     {n:'"World\'s greatest" stretch',d:'5 reps/side'},
+     {n:'Lateral bounds',d:'2x4/side — light'},
+     {n:'Flying 20m sprints',d:'2 build-ups — 80% only'}
+   ]},{h:'Main Work',i:[
+     {n:'Flying 20m sprints',d:'4 reps — 4 min rest — feel FAST'},
+     {n:'3-cone drill',d:'4 reps — chase your best time'},
+     {n:'Lateral shuffle burst',d:'5 reps/side — sharp'}
+   ]}],
+   no:'You should feel electric. If you feel sluggish, take an extra rest day — you are not recovered yet.'},
+  {ti:'Mobility + Light Work',su:'Stay loose · maintain tendon health',ty:'Recovery',tc:'#f0c060',
+   s:[{h:'Warmup',i:[
+     {n:'Easy bike or jog',d:'5 min'}
+   ]},{h:'Main Work',i:[
+     {n:'Pigeon pose',d:'3x90s/side'},
+     {n:'Kneeling hip flexor stretch',d:'3x90s/side'},
+     {n:'Copenhagen adductor plank',d:'2x30s/side — maintain'},
+     {n:'Isometric hip flexor hold',d:'2x30s/side — maintain'},
+     {n:'Farmer carry',d:'2x30m — light and easy'},
+     {n:'Foam roll',d:'10 min full body'}
+   ]}],
+   no:'Your body is absorbing 6 weeks of work. Trust the process.'},
   {ti:'Active Recovery',su:'Walk · stretch · light movement only',ty:'Recovery',tc:'#f0c060',
-   s:[{h:'Today',i:[{n:'20-30 min walk',d:'Easy pace, no rushing'},{n:'Hip + hamstring stretch flow',d:'20 min — full sequence'},{n:'No gym today',d:'Body only — you\'ve earned the rest'}]}],
-   no:'You\'re not losing fitness by resting. You\'re gaining it. Adaptation happens during recovery.'},
+   s:[{h:'Today',i:[
+     {n:'Easy bike or jog',d:'20-30 min — easy pace'},
+     {n:'90/90 hip stretch',d:'3x60s/side'},
+     {n:'Kneeling hip flexor stretch',d:'3x60s/side'},
+     {n:'Dead bug',d:'2x8/side — maintain core work'}
+   ]}],
+   no:'You are not losing fitness by resting. You are gaining it. Adaptation happens during recovery.'},
   {ti:'Power Activation',su:'Wake the nervous system · don\'t fatigue it',ty:'Power',tc:'#f06090',
-   s:[{h:'Warmup',i:[{n:'Jump rope',d:'3 min'},{n:'Leg swings',d:'10/side'}]},
-      {h:'Main Work',i:[{n:'Box jumps',d:'3x3 — long rest, feel explosive'},{n:'Sprint 20m from standing start',d:'3 reps — feel fast'},{n:'Lateral bounds',d:'3x4/side'}]}],
-   no:'In and out in 30 min. Leave feeling ACTIVATED, not tired. This is a firing drill.'},
+   s:[{h:'Warmup',i:[
+     {n:'Leg swings',d:'10/side'},
+     {n:'Lateral bounds',d:'2x4/side — light'}
+   ]},{h:'Main Work',i:[
+     {n:'Box jumps',d:'3x3 — long rest, feel explosive'},
+     {n:'Flying 20m sprints',d:'3 reps — feel fast'},
+     {n:'Lateral bounds',d:'3x4/side — sharp'}
+   ]}],
+   no:'In and out in 30 min. Leave feeling ACTIVATED not tired. This is a firing drill only.'},
   {ti:'Short Game-Sim',su:'Pregame skate energy · sharp and brief',ty:'Game Sim',tc:'#c8f060',
-   s:[{h:'Warmup',i:[{n:'10 min easy movement',d:''}]},
-      {h:'Main Work',i:[{n:'30s effort / 90s rest',d:'5 rounds only — keep it short'},{n:'3-cone lateral drill',d:'4 reps — feel sharp'}]}],
-   no:'Last session before tournament week. Short and sharp. You\'re already fit — stay that way.'},
+   s:[{h:'Warmup',i:[
+     {n:'Easy bike or jog',d:'8 min easy'}
+   ]},{h:'Main Work',i:[
+     {n:'30s sprint 90s walk',d:'5 rounds only — short and sharp'},
+     {n:'3-cone drill',d:'4 reps — feel sharp'}
+   ]}],
+   no:'Last session before tournament week. Short and sharp. You are already fit — stay that way.'},
   {rest:true,tourn:true}
  ]}
 ];
+
 var DLBL=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 var pi=0,wi=0,di=0;
 var ST={};
-try{ST=JSON.parse(localStorage.getItem('hpk')||'{}')}catch(e){}
-function save(){try{localStorage.setItem('hpk',JSON.stringify(ST))}catch(e){}}
+try{ST=JSON.parse(localStorage.getItem('hpk3')||'{}')}catch(e){}
+var OT={};
+
+function save(){try{localStorage.setItem('hpk3',JSON.stringify(ST))}catch(e){}}
 function K(p,w,d,s,i){return p+'|'+w+'|'+d+'|'+s+'|'+i}
+function TK(id){return 't|'+id}
+
 function getPct(p,w,d){
   var day=PH[p].days[d];
   if(day.rest)return 100;
-  var tot=HIP.length,dn=0;
+  var tot=HIP.length+CORE.length,dn=0;
   for(var i=0;i<HIP.length;i++)if(ST[K(p,w,d,'h',i)])dn++;
+  for(var i=0;i<CORE.length;i++)if(ST[K(p,w,d,'c',i)])dn++;
   for(var s=0;s<day.s.length;s++)for(var i=0;i<day.s[s].i.length;i++){tot++;if(ST[K(p,w,d,s,i)])dn++;}
   return tot?Math.round(dn/tot*100):0;
 }
+
+function getTotDone(p,w,d){
+  var day=PH[p].days[d];
+  var tot=HIP.length+CORE.length,dn=0;
+  for(var i=0;i<HIP.length;i++)if(ST[K(p,w,d,'h',i)])dn++;
+  for(var i=0;i<CORE.length;i++)if(ST[K(p,w,d,'c',i)])dn++;
+  for(var s=0;s<day.s.length;s++)for(var i=0;i<day.s[s].i.length;i++){tot++;if(ST[K(p,w,d,s,i)])dn++;}
+  return {tot:tot,dn:dn};
+}
+
+function tipHTML(name){
+  var t=TIPS[name];if(!t)return '';
+  var h='<div class="tinner">';
+  if(t.s)h+='<div class="trow"><div class="tlbl">Setup</div><div class="ttxt">'+t.s+'</div></div>';
+  if(t.h)h+='<div class="trow"><div class="tlbl">How</div><div class="ttxt">'+t.h+'</div></div>';
+  if(t.f)h+='<div class="trow"><div class="tlbl">Feel</div><div class="ttxt">'+t.f+'</div></div>';
+  if(t.e)h+='<div class="trow"><div class="tlbl err">Watch out</div><div class="ttxt">'+t.e+'</div></div>';
+  h+='</div>';return h;
+}
+
+function buildItem(name,detail,ckKey,tag){
+  var ck=ST[ckKey]?'ck':'';
+  var hasTip=!!TIPS[name];
+  var tid='tip-'+ckKey;
+  var isOpen=OT[tid];
+  var nb=tag==='new'?'<span class="new-badge">new</span>':'';
+  var h='<div class="item '+ck+'" id="item-'+ckKey+'">';
+  h+='<div class="itop" onclick="togCk(\''+ckKey+'\')">';
+  h+='<div class="cbox">'+(ST[ckKey]?'✓':'')+'</div>';
+  h+='<div class="imid"><div class="iname">'+name+nb+'</div><div class="idet">'+detail+'</div></div>';
+  h+='</div>';
+  if(hasTip){
+    h+='<div class="tbtn'+(isOpen?' open':'')+'" id="'+tid+'" onclick="togTip(\''+tid+'\',\''+name+'\')">';
+    h+=(isOpen?'▲ Hide form':'ℹ️ Form &amp; cues');
+    h+='</div>';
+    h+='<div class="tpanel'+(isOpen?' open':'')+'" id="tp-'+tid+'">'+(isOpen?tipHTML(name):'')+'</div>';
+  }
+  h+='</div>';
+  return h;
+}
+
+function togCk(k){
+  ST[k]=!ST[k];save();
+  var el=document.getElementById('item-'+k);
+  if(el){
+    el.classList.toggle('ck',ST[k]);
+    var cb=el.querySelector('.cbox');if(cb)cb.textContent=ST[k]?'✓':'';
+    var nm=el.querySelector('.iname');if(nm)nm.style.textDecoration=ST[k]?'line-through':'none';
+  }
+  updProg();renderDays();
+}
+
+function togTip(tid,name){
+  OT[tid]=!OT[tid];
+  var btn=document.getElementById(tid);
+  var panel=document.getElementById('tp-'+tid);
+  if(btn){btn.classList.toggle('open',OT[tid]);btn.innerHTML=OT[tid]?'▲ Hide form':'ℹ️ Form &amp; cues';}
+  if(panel){
+    panel.classList.toggle('open',OT[tid]);
+    if(OT[tid]&&!panel.innerHTML.trim())panel.innerHTML=tipHTML(name);
+  }
+}
+
+function updProg(){
+  var td=getTotDone(pi,wi,di);
+  var p=getPct(pi,wi,di);
+  var pb=document.getElementById('pb');if(pb)pb.style.width=p+'%';
+  var pn=document.getElementById('pn');if(pn)pn.textContent=td.dn+'/'+td.tot;
+  var db=document.getElementById('db');if(db)db.style.display=p===100?'block':'none';
+}
+
 function renderPTabs(){
   var h='';
   for(var i=0;i<PH.length;i++)h+='<div class="ptab'+(i===pi?' active':'')+'" onclick="setP('+i+')">'+PH[i].lb+': '+PH[i].fl+'</div>';
   document.getElementById('ptabs').innerHTML=h;
 }
+
 function renderWTabs(){
   var ph=PH[pi],h='';
   for(var i=0;i<ph.wks.length;i++)h+='<div class="wtab'+(i===wi?' active':'')+'" onclick="setW('+i+')">'+ph.wks[i]+'</div>';
   document.getElementById('wrow').innerHTML=h;
 }
+
 function renderDays(){
   var ph=PH[pi],h='';
   for(var i=0;i<ph.days.length;i++){
     var d=ph.days[i],p=getPct(pi,wi,i);
-    var cls='daybtn'+(i===di?' active':'')+(d.rest?' rest-day':'')+((!d.rest&&p===100)?' all-done':'');
+    var cls='daybtn'+(i===di?' active':'')+(d.rest?' rd':'')+((!d.rest&&p===100)?' done':'');
     var col=i===di&&!d.rest?'border-color:'+ph.col:'';
     h+='<div class="'+cls+'" onclick="'+(d.rest?'':'setD('+i+')')+'" style="'+col+'">';
-    h+='<div class="day-lbl" style="'+(i===di&&!d.rest?'color:'+ph.col:'')+'">'+DLBL[i]+'</div>';
-    h+='<div class="day-pct">'+(d.rest?'—':(p>0?p+'%':'·'))+'</div></div>';
+    h+='<div class="dlbl" style="'+(i===di&&!d.rest?'color:'+ph.col:'')+'">'+DLBL[i]+'</div>';
+    h+='<div class="dpct">'+(d.rest?'—':(p>0?p+'%':'·'))+'</div></div>';
   }
   document.getElementById('drow').innerHTML=h;
 }
+
 function renderSession(){
-  var ph=PH[pi],day=ph.days[di],el=document.getElementById('sarea');
-  el.scrollTop=0;
+  var ph=PH[pi],day=ph.days[di],el=document.getElementById('sa');
+  el.scrollTop=0;OT={};
   if(day.rest){
-    el.innerHTML='<div class="rest-screen"><div class="rest-icon">'+(day.tourn?'🏒':'😴')+'</div><div class="rest-title">'+(day.tourn?'Tournament Day':'Rest Day')+'</div><div class="rest-body">'+(day.tourn?'May 16, 2026. Everything you\'ve built leads to this. Sleep well, eat well, stay loose. You\'re ready.':'Sleep, eat, recover. Full rest is a required part of this plan — not optional.')+'</div></div>';
+    el.innerHTML='<div class="rscreen"><div class="rico">'+(day.tourn?'🏒':'😴')+'</div><div class="rtitle">'+(day.tourn?'Tournament Day':'Rest Day')+'</div><div class="rbody">'+(day.tourn?'May 16, 2026. Everything you\'ve built leads to this. Sleep well, eat well, stay loose. You\'re ready.':'Sleep, eat, recover. Full rest is a required part of this plan — not a reward.')+'</div></div>';
     return;
   }
+  var td=getTotDone(pi,wi,di);
   var p=getPct(pi,wi,di);
-  var tot=HIP.length,dn=0;
-  for(var i=0;i<HIP.length;i++)if(ST[K(pi,wi,di,'h',i)])dn++;
-  for(var s=0;s<day.s.length;s++)for(var ii=0;ii<day.s[s].i.length;ii++){tot++;if(ST[K(pi,wi,di,s,ii)])dn++;}
-  var h='<div class="sess-hdr">';
-  h+='<div class="type-pill" style="color:'+day.tc+';border-color:'+day.tc+';background:'+day.tc+'18">'+day.ty+'</div>';
-  h+='<div class="sess-title">'+day.ti+'</div>';
-  h+='<div class="sess-sub">'+day.su+'</div>';
-  h+='<div class="prog-row"><div class="prog-track"><div class="prog-bar" id="pb" style="width:'+p+'%;background:'+ph.col+'"></div></div><div class="prog-num" id="pn">'+dn+'/'+tot+'</div></div>';
+  var h='<div class="shdr">';
+  h+='<div class="spill" style="color:'+day.tc+';border-color:'+day.tc+';background:'+day.tc+'18">'+day.ty+'</div>';
+  h+='<div class="stitle">'+day.ti+'</div>';
+  h+='<div class="ssub">'+day.su+'</div>';
+  h+='<div class="prow"><div class="ptrack"><div class="pbar" id="pb" style="width:'+p+'%;background:'+ph.col+'"></div></div><div class="pnum" id="pn">'+td.dn+'/'+td.tot+'</div></div>';
   h+='</div>';
-  h+='<div class="hip-note">⚡ Hip reset first — every morning before training. Your #1 priority.</div>';
-  h+='<div class="section"><div class="sec-hdr">Morning Hip Reset</div>';
-  for(var i=0;i<HIP.length;i++){
-    var k=K(pi,wi,di,'h',i),ck=ST[k]?' ck':'';
-    h+='<div class="item'+ck+'" onclick="tog(\''+k+'\')"><div class="chkbox">'+(ST[k]?'✓':'')+'</div><div><div class="iname">'+HIP[i].n+'</div><div class="idetail">'+HIP[i].d+'</div></div></div>';
-  }
+  h+='<div class="hnote">⚡ Hip reset + core first, every day. Tap ℹ️ on any exercise for form cues.</div>';
+
+  h+='<div class="sec"><div class="sechdr">Morning Hip Reset + Tendon Work</div>';
+  for(var i=0;i<HIP.length;i++)h+=buildItem(HIP[i].n,HIP[i].d,K(pi,wi,di,'h',i),HIP[i].tag);
   h+='</div>';
+
+  h+='<div class="sec"><div class="sechdr">Daily Core</div>';
+  for(var i=0;i<CORE.length;i++)h+=buildItem(CORE[i].n,CORE[i].d,K(pi,wi,di,'c',i),CORE[i].tag);
+  h+='</div>';
+
   for(var s=0;s<day.s.length;s++){
-    h+='<div class="section"><div class="sec-hdr">'+day.s[s].h+'</div>';
+    h+='<div class="sec"><div class="sechdr">'+day.s[s].h+'</div>';
     for(var ii=0;ii<day.s[s].i.length;ii++){
-      var k=K(pi,wi,di,s,ii),ck=ST[k]?' ck':'',it=day.s[s].i[ii];
-      h+='<div class="item'+ck+'" onclick="tog(\''+k+'\')"><div class="chkbox">'+(ST[k]?'✓':'')+'</div><div><div class="iname">'+it.n+'</div><div class="idetail">'+it.d+'</div></div></div>';
+      var it=day.s[s].i[ii];
+      h+=buildItem(it.n,it.d,K(pi,wi,di,s,ii),it.tag);
     }
     h+='</div>';
   }
-  if(day.no)h+='<div class="coach"><b>Coach:</b> '+day.no+'</div>';
-  h+='<div class="done-banner" id="db" style="display:'+(p===100?'block':'none')+'">Session complete 🏒</div>';
+  if(day.no)h+='<div class="cnote"><b>Coach:</b> '+day.no+'</div>';
+  h+='<div class="dbanner" id="db" style="display:'+(p===100?'block':'none')+'">Session complete 🏒</div>';
   el.innerHTML=h;
 }
-function tog(k){
-  ST[k]=!ST[k];save();
-  var el=document.querySelector('[onclick="tog(\''+k+'\')"]');
-  if(el){el.classList.toggle('ck',ST[k]);el.querySelector('.chkbox').textContent=ST[k]?'✓':'';}
-  var p=getPct(pi,wi,di);
-  var day=PH[pi].days[di];
-  var tot=HIP.length,dn=0;
-  for(var i=0;i<HIP.length;i++)if(ST[K(pi,wi,di,'h',i)])dn++;
-  for(var s=0;s<day.s.length;s++)for(var ii=0;ii<day.s[s].i.length;ii++){tot++;if(ST[K(pi,wi,di,s,ii)])dn++;}
-  var pb=document.getElementById('pb');if(pb)pb.style.width=p+'%';
-  var pn=document.getElementById('pn');if(pn)pn.textContent=dn+'/'+tot;
-  var db=document.getElementById('db');if(db)db.style.display=p===100?'block':'none';
-  renderDays();
-}
+
 function setP(i){pi=i;wi=0;di=0;renderPTabs();renderWTabs();renderDays();renderSession();}
 function setW(i){wi=i;renderWTabs();renderDays();renderSession();}
 function setD(i){di=i;renderDays();renderSession();}
+
+// Auto-jump to today — plan starts March 21 2026
 (function(){
-  var start=new Date('2026-03-16'),now=new Date();
+  var start=new Date('2026-03-21'),now=new Date();
   var diff=Math.floor((now-start)/86400000);
   if(diff>=0&&diff<56){
     var tw=Math.floor(diff/7),dow=diff%7;
@@ -275,6 +559,7 @@ function setD(i){di=i;renderDays();renderSession();}
     di=dow;
   }
 })();
+
 renderPTabs();renderWTabs();renderDays();renderSession();
 </script>
 </body>
